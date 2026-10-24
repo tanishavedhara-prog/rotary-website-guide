@@ -14,6 +14,7 @@
     .mechanism { position:absolute; inset:0; border-radius:50%; background:conic-gradient(from 15deg,#777f83,#f1f3f3 14%,#99a0a5 25%,#fff 37%,#a0a3a3 50%,#555d61 65%,#e1e4e5 83%,#777f83); border:2px solid #d4d8d9; box-shadow:inset 0 0 0 3px #676c6d,inset 0 0 14px #fff,0 9px 18px #0002; }
     .connection { position:absolute; left:var(--x); top:var(--y); width:16%; aspect-ratio:1; min-width:44px; min-height:44px; border-radius:50%; transform:translate(-50%,-50%); display:grid; place-items:center; color:var(--accent); background:radial-gradient(circle at 36% 29%,#fff 3%,#f3f1e9 67%,#c4c6c2 87%); border:1px solid #3e4447; box-shadow:0 0 0 2px #f5f6f5,0 0 0 4px #7a8286,inset 2px 3px 5px #0004; text-decoration:none; font-weight:700; font-size:clamp(15px,4.5vw,29px); -webkit-tap-highlight-color:transparent; }
     .connection img { width:55%; height:55%; object-fit:contain; }
+    .connection img.fill { width:88%; height:88%; }
     .connection[aria-disabled] { cursor:default; }
     .connection.is-selected { outline:3px solid var(--accent); outline-offset:5px; }
     a:focus-visible, button:focus-visible { outline:3px solid #216dca; outline-offset:6px; }
@@ -67,8 +68,8 @@
       autoplay: true,
       links: [
         { label:'Instagram', url:'https://www.instagram.com/getgutsmart/', initials:'IG', color:'#c13584', icon:'assets/instagram.svg' },
-        { label:'My Links', url:'https://stan.store/Getgutsmart', initials:'ML', color:'#6355ff', icon:'assets/stan.svg' },
-        { label:'Weightloss Plan', url:'https://stan.store/Getgutsmart/p/ggs-plan', initials:'WP', color:'#5f9a4b', icon:'assets/leaf.svg' },
+        { label:'My Links', url:'https://stan.store/Getgutsmart', initials:'ML', color:'#6355ff', icon:'assets/my-links.svg', fill:true },
+        { label:'Weightloss Plan', url:'https://stan.store/Getgutsmart/p/ggs-plan', initials:'WP', color:'#4f8f3a', icon:'assets/lose-weight.svg', fill:true },
         { label:'Rise Together', url:'https://www.instagram.com/rise.with.tanisha/', initials:'RT', color:'#d4664a', icon:'assets/instagram-rise.svg' },
         { label:'WhatsApp', url:'https://wa.me/qr/TC26VTLGEKRXN1', initials:'WA', color:'#25d366', icon:'assets/whatsapp.svg' }
       ]
@@ -162,7 +163,7 @@
       const initials = document.createElement('span'); initials.textContent = item.initials || item.label.slice(0, 2); initials.setAttribute('aria-hidden', 'true');
       circle.append(initials);
       if (item.icon) {
-        const image = document.createElement('img'); image.alt = ''; image.src = item.icon; initials.hidden = true;
+        const image = document.createElement('img'); image.alt = ''; if (item.fill) image.className = 'fill'; image.src = item.icon; initials.hidden = true;
         image.addEventListener('error', () => { image.remove(); initials.hidden = false; }); circle.append(image);
       }
       const row = document.createElement('li');
